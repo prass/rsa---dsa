@@ -24,57 +24,31 @@ int mod_mul(int i, int j, int p) {
 	return product % p;
 }
 
-int mod_div2(int x, int p) {
-	if( x % 2 == 0)
-		return x/2;
-	else
-		return p - ( (p - x) / 2) ;
-}
-
-
-int mod_div(int x, int y, int p) {
-	struct euklid *r=&R, *l=&L, *n=0;
-
-	if(y == 0)
+int mod_div(int pub, int p) {
+	int i = p;
+	int j = pub;
+	int y = p;
+	int y2 = 0;
+	int y1 = 1;
+	int quotient = p;
+	int remainder = p;
+	if( pub >= p)
 		return p;
-	if(x == 0)
-		return 0;
-
-	while(y%2 == 0) {
-		y = y /2;
-		x = mod_div2(x, p);
+	while( j > 0 ) {
+		quotient = i / j;
+		remainder = i - ( j * quotient );
+		y = y2 - ( y1 * quotient );
+		i = j;
+		j = remainder;
+		y2 = y1;
+		y1 = y;
 	}
-
-	l->a=p-y;
-	l->t=p-x;
-
-	r->a=y;
-	r->t=x;
-
-	while( l->a % 2 == 0 ) {
-		l->a = l->a / 2;
-		l->t = mod_div2(l->t, p);
-	}
-
-	while( R.a > 1 && L.a > 1) {
-		if(r->a > l->a) {
-			n=l;
-			l=r;
-			r=n;	
-		}
-
-		l->a = mod_sub(l->a, r->a, p);
-		l->t = mod_sub(l->t, r->t, p);
-
-		while( l->a % 2 == 0 ) {
-			l->a = l->a / 2;
-			l->t = mod_div2(l->t, p);
-		}
-	}
-	if( l->a == 1 )
-		return l->t;
+	if( i != 1 )
+		return p;
+	if( y2 > 0 )	
+		return y2 % p;
 	else
-		return r->t;
+		return p + y2;
 }
 
 int mod_pow(int x, int n, int p) {

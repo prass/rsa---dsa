@@ -22,24 +22,23 @@ int ggT(int a, int b) {
 
 int get_public(int phi) {
 	int public_key;
-	public_key = rand() % PRIME;
+	public_key = rand() % phi;
 	while(ggT(public_key, phi) > 1) 
-		public_key = rand() % PRIME;
+		public_key = rand() % phi;
 	return public_key;
 }
 
 
 int main( void ) {
-	int p1 = 13, p2 = 5;
-	//int n = p1 * p2;
+	int p1 = 13, p2 = 11;
 	int phi = (p1 - 1) * (p2 - 1); 
 	int pub = PRIME;
 	int priv = PRIME;
 	srand(time(0));
 	printf("%d \n", ggT(p1, p2));
 	pub = get_public(phi);
-	priv = mod_div(1,pub);
+	priv = mod_div(pub, phi);
+	printf("Pub: %d Priv: %d Phi: %d\n", pub, priv, phi);
 	printf("%d * %d = %d\n", pub, priv, mod_mul(pub, priv, phi));
-
 	return EXIT_SUCCESS;
 }
