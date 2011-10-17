@@ -3,9 +3,6 @@
 #include <math.h>
 #include "mod_ops.h"
 
-struct euklid R,L;
-
-
 int mod_add(int i, int j, int p) {
 	if( (p - i ) > j )
 		return i + j;
@@ -65,9 +62,9 @@ int mod_div(int pub, int p) {
 int mod_pow(int x, int n, int p) {
 	int r=1;
 	while( n ) {
-		if(n&1) r = mod_mul(x, r);
+		if( (n&1) ) r = mod_mul(x, r, p);
 		n>>=1;
-		x = mod_mul(x, x);
+		x = mod_mul(x, x, p);
 	}
 	return r % p;
 }
