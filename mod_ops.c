@@ -68,4 +68,3 @@ int mod_pow(int x, int n, int p) {
 	}
 	return r;
 }
-
