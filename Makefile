@@ -6,5 +6,5 @@ mod_ops.o: mod_ops.c mod_ops.h
 calc_primes: calc_primes.c
 	g++ -g -Wall -lm -o calc_primes calc_primes.c
 clean:
-	rm rsa *.o
+	rm rsa *.o calc_primes
 .PHONY: clean

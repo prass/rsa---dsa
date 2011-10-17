@@ -1,27 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "mod_ops.h"
 
 struct euklid R,L;
 
+
 int mod_add(int i, int j, int p) {
 	if( (p - i ) > j )
-		return i -j;
+		return i + j;
 	else
 		return j - ( p - i);
 }
 
 int mod_sub(int i, int j, int p) {
-	if(i < j) {
-		return p + (i - j);
-	} else {
-		return i - j;
-	}
+	return mod_add(i, p - j);
 }
 
-int mod_mul(int i, int j, int p) {
-	int product = i*j;
-	return product % p;
+int mod_mul(int x, int y, int p) {
+	int x1, x2;
+	int y1, y2;
+	int s = (int)sqrt((double)p);
+	if( x == 0 || y == 0 ) return 0;
+	if( x == 1 ) return y;
+	if( y == 1 ) return x;
+	if( x <= s && y <= s ) {
+		return x * y;
+	} else {
+		x1 = x>>1;
+		x2 = x - x1;
+		y1 = y>>1;
+		y2 = y - y1;
+		return mod_add( mod_add( mod_add( mod_mul( x1, y1,p), mod_mul( x1, y2,p) ,p), mod_mul( x2, y1,p),p), mod_mul(x2,y2,p),p);
+	}
 }
 
 int mod_div(int pub, int p) {
@@ -52,12 +63,13 @@ int mod_div(int pub, int p) {
 }
 
 int mod_pow(int x, int n, int p) {
-	int ret=1;
-	int i=0;
-	for(i=0; i < n; i++) {
-		ret = mod_mul(ret,x, p);
+	int r=1;
+	while( n ) {
+		if(n&1) r = mod_mul(x, r);
+		n>>=1;
+		x = mod_mul(x, x);
 	}
-	return ret;
+	return r % p;
 }
 
 int mod_sqrt(int x, int p) {

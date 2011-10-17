@@ -30,7 +30,7 @@ int get_public(int phi) {
 
 
 int main( void ) {
-	int p1 = 127, p2 = 13;
+	int p1 = 127, p2 = 4999;
 	int phi = (p1 - 1) * (p2 - 1); 
 	int pub = PRIME;
 	int priv = PRIME;
