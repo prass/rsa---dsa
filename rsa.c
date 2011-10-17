@@ -32,18 +32,17 @@ int get_public(int phi) {
 
 
 int main( void ) {
-	int p1 = 127, p2 = 13;
+	int p1 = 227, p2 = 31;
 	int n = p1 * p2;
 	int phi = (p1 - 1) * (p2 - 1); 
-	int pub = PRIME;
-	int priv = PRIME;
+	int pub;
+	int priv;
 	int message[6] = {'h','a','l','l','o',0};
 	int i = 0;
 	srand(time(0));
-
 	pub = get_public(phi);
 	priv = mod_div(pub, phi);
-	
+
 	printf("Verschluessele Text...\n");
 	for(i = 0; i < 6; i++) {
 		printf("%c", (char)message[i]);

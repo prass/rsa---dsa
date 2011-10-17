@@ -3,15 +3,15 @@
 #include <math.h>
 #include "mod_ops.h"
 
-int mod_add(int i, int j, int p) {
-	if( (p - i ) > j )
-		return i + j;
+int mod_add(int x, int y, int p) {
+	if( (p - x ) > y )
+		return x + y;
 	else
-		return j - ( p - i);
+		return y - ( p - x);
 }
 
-int mod_sub(int i, int j, int p) {
-	return mod_add(i, p - j);
+int mod_sub(int x, int y, int p) {
+	return mod_add(x, p - y, p);
 }
 
 int mod_mul(int x, int y, int p) {
@@ -54,7 +54,7 @@ int mod_div(int pub, int p) {
 	if( i != 1 )
 		return p;
 	if( y2 > 0 )	
-		return y2 % p;
+		return y2;
 	else
 		return p + y2;
 }
@@ -66,14 +66,6 @@ int mod_pow(int x, int n, int p) {
 		n>>=1;
 		x = mod_mul(x, x, p);
 	}
-	return r % p;
+	return r;
 }
 
-int mod_sqrt(int x, int p) {
-	if( x <= 1 ) return x;
-	if( mod_pow(x, (p-1)>>1, p) != 1) return p;
-	if( ( (p+1) & 3) == 0)
-		return mod_pow(x, (p+1) >> 2, p);
-	printf("\nPrimzahl + 1 ist nicht glatt durch 4 teilbar.\n");
-	exit(1);
-}
