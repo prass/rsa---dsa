@@ -25,7 +25,8 @@ int get_public(int phi) {
 	int offset = 0;
 	public_key = rand() % phi;
 	while(ggT(public_key, phi) > 1) {
-		public_key = (rand() + offset++) % phi;
+		offset++;
+		public_key = (rand() + offset) % phi;
 	}
 	return public_key;
 }
