@@ -15,9 +15,10 @@ int is_prime(int number) {
 	return 1;
 }
 
-int main( void ) {
+int main( int argc, char *argv[] ) {
 	int i = 1;
-	for(i = 1; i < MAX; i = i + 2) {
+	if(argc < 2) return EXIT_FAILURE;
+	for(i = 1; i < atoi(argv[1]); i = i + 2) {
 		if(is_prime(i))
 			printf("%d %d\n", (int)sizeof(int), i);
 	}
