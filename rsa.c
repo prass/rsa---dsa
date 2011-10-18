@@ -54,6 +54,7 @@ int main( void ) {
 		printf("%c", (char)('!' + (message[i] % ('}' - '!'))));
 	}
 	printf("\n");
+
 	printf("Entschluessele Text...\n");
 	for(i = 0; i < 6; i++) {
 		message[i] = mod_pow(message[i],priv, n);

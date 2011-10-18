@@ -20,6 +20,6 @@ int main( int argc, char *argv[] ) {
 	if(argc < 2) return EXIT_FAILURE;
 	for(i = 1; i < atoi(argv[1]); i = i + 2) {
 		if(is_prime(i))
-			printf("%d %d\n", (int)sizeof(int), i);
+			printf("%d\n", i);
 	}
 }
