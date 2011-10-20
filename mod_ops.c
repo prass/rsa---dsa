@@ -54,7 +54,7 @@ int mod_div(int pub, int p) {
 	if( i != 1 )
 		return p;
 	if( y2 > 0 )	
-		return y2;
+		return y2 % p;
 	else
 		return p + y2;
 }
