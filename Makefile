@@ -9,4 +9,4 @@ dsa: dsa.c mod_ops.o
 	g++ -g -Wall -o dsa dsa.c mod_ops.o
 clean:
 	rm dsa rsa *.o calc_primes
-.PHONY: clean
+.PHONY: clean all

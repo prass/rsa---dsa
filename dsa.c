@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+
 #include "mod_ops.h"
 
 struct sign {
@@ -27,12 +28,8 @@ int validate(struct sign si,struct pub_key pub, int m) {
 
 
 int main( void ) {
-	int m = 31;
-	int x;
-	int h;
-	int s;
+	int m = 31, x, h, s, result;
 	struct sign si;
-	int result;
 	struct pub_key pub;
 
 	srand(time(0));
@@ -42,10 +39,12 @@ int main( void ) {
 
 	x = 1 + rand() % (pub.q - 1 );
 	h = 1 + rand() % (pub.p - 1 );
+
 	while( mod_pow(h , (pub.p - 1) / pub.q, pub.p)  == 1) {
 		h++;
 		h = h % pub.p;
 	}
+
 	pub.g = mod_pow(h, (pub.p - 1) / pub.q, pub.p);
 	pub.y = mod_pow(pub.g, x, pub.p);
 
